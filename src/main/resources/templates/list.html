@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        h1{
+            margin-bottom: 40px;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .nav-item{
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container">
+    <h1>City List</h1>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/city/create}">Create</a>
+        </li>
+        <form th:action="@{/city/search}" method="post" class="d-flex" role="search">
+            <input class="form-control me-2" name="name" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </ul>
+</div>
+
+<div class="container mt-3">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Acreage</th>
+            <th>Population</th>
+            <th>GDP</th>
+            <th>Description</th>
+            <th>Delete</th>
+            <th>Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="city: ${cities}">
+            <tr>
+                <td th:text="${city.name}"></td>
+                <td th:text="${city.country.name}"></td>
+                <td th:text="${city.acreage}"></td>
+                <td th:text="${city.population}"></td>
+                <td th:text="${city.gdp}"></td>
+                <td th:text="${city.description}"></td>
+
+                <td>
+                    <a onclick="return confirm('Ban co muon xoa khong')" class="btn btn-danger" th:href="@{/city/delete/__${city.id}__ }">Delete</a>
+                </td>
+                <td>
+                    <a class="btn btn-success" th:href="@{/city/update/__${city.id}__ }">Update</a>
+                </td>
+
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
